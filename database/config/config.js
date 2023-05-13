@@ -12,6 +12,13 @@ const {
   DB_PORT,
   DB_DIALECT,
   DB_NAME,
+  PG_URL,
+  PG_HOST,
+  PG_PORT,
+  PG_DIALECT,
+  PG_DATABASE,
+  PG_USERNAME,
+  PG_PASSWORD,
 } = process.env;
 
 module.exports = {
@@ -36,13 +43,13 @@ module.exports = {
     database_url: DB_URL
   },
   production: {
-    username: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_NAME,
-    host: DB_HOST,
-    dialect: DB_DIALECT,
-    host: DB_HOST,
-    port: DB_PORT,
-    database_url: DB_URL
+    username: PG_USERNAME,
+    password: PG_PASSWORD,
+    database: PG_DATABASE,
+    host: PG_HOST,
+    dialect: PG_DIALECT,
+    host: PG_HOST,
+    port: PG_PORT,
+    database_url: PG_URL
   },
 };
