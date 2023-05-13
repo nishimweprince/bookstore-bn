@@ -8,23 +8,19 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
 // CONFIGURE DOTENV
 dotenv.config();
 
 // CONNECT TO DATABASE
-const sequelize = new Sequelize(
-  process.env.DB_URL || config.database_url,
-  {
-    dialect: config.dialect,
-    host: config.host
-  }
-);
+const sequelize = new Sequelize(process.env.DB_URL || config.database_url, {
+  dialect: config.dialect,
+  host: config.host,
+});
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
+fs.readdirSync(__dirname)
+  .filter((file) => {
     return (
       file.indexOf('.') !== 0 &&
       file !== basename &&
@@ -32,12 +28,15 @@ fs
       file.indexOf('.test.js') === -1
     );
   })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
