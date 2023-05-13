@@ -24,26 +24,16 @@ module.exports = (sequelize, DataTypes) => {
         as: 'cart',
         onDelete: 'CASCADE',
       });
-      // ROLE
-      user.belongsTo(models.role, {
-        as: 'role',
-        foreignKey: 'roleId',
-        onDelete: 'CASCADE',
-      });
     }
   }
   user.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         unique: true,
-        defaultValue: () => {
-          // Generate a random UUID and truncate it to 12 characters
-          const uuid = DataTypes.UUIDV4().replace(/-/g, '');
-          return uuid.slice(0, 12);
-        },
+        defaultValue: DataTypes.UUIDV4,
       },
       name: {
         type: DataTypes.STRING,
@@ -54,10 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
       },
-      password: DataTypes.STRING,
-      roleId: {
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      role: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
       },
       photo: {
         type: DataTypes.STRING,

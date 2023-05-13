@@ -23,12 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
         unique: true,
-        defaultValue: () => {
-          // Generate a random UUID and truncate it to 12 characters
-          const uuid = DataTypes.UUIDV4().replace(/-/g, '');
-          return uuid.slice(0, 12);
-        },
-      },
+        defaultValue: DataTypes.UUIDV4},
       name: {
         type: DataTypes.STRING,
         allowNull: false,
