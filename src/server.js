@@ -1,6 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import db from '../database/models/index';
+import routes from './routes/routes';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -10,6 +13,15 @@ const { PORT } = process.env;
 
 // INITIALIZATE EXPRESS APP
 const app = express();
+
+// PARSE REQUEST BODY
+app.use(bodyParser.json());
+
+// USE CORS MIDDLEWARE
+app.use(cors());
+
+// LOAD ROUTES
+app.use('/api', routes);
 
 // CREATE SERVER INSTANCE
 const server = app.listen(PORT);

@@ -8,11 +8,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
-        defaultValue: () => {
-          // Generate a random UUID and truncate it to 12 characters
-          const uuid = Sequelize.UUIDV4().replace(/-/g, '');
-          return uuid.slice(0, 12);
-        },
+        defaultValue: Sequelize.UUIDV4
       },
       userId: {
         type: Sequelize.STRING,
