@@ -1,0 +1,32 @@
+{
+  "name": "bookstore-bn",
+  "version": "1.0.0",
+  "description": "NISHIMWE' Readr - A digital bookstore application",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "dev": "nodemon src/server.js --exec babel-node",
+    "build": "babel src --out-dir dist",
+    "start": "npm run build && node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nishimweprince/bookstore-bn.git"
+  },
+  "keywords": [
+    "bookstore"
+  ],
+  "author": "Nishimwe Prince",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nishimweprince/bookstore-bn/issues"
+  },
+  "homepage": "https://github.com/nishimweprince/bookstore-bn#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "sequelize": "^6.31.1"
+  }
+}
