@@ -1,11 +1,19 @@
 import express from 'express';
-import signupRoute from './userRoute';
+import userRoute from './userRoute';
+import bookRoute from './bookRoute';
 
 // LOAD EXPRESS ROUTER
 const router = express.Router();
 
-// LOAD ROUTES
-router.use('/user', signupRoute);
+/**
+ * ROUTES
+ */
+
+// USER ROUTES
+router.use('/user', userRoute);
+
+// BOOK ROUTES
+router.use('/book', bookRoute);
 
 // EXPORT ROUTER
 export default router;
