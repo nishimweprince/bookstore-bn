@@ -15,7 +15,7 @@ const { PORT } = process.env;
 const app = express();
 
 // PARSE REQUEST BODY
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 // USE CORS MIDDLEWARE
 app.use(cors());

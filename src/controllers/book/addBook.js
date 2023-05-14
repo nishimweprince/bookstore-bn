@@ -1,5 +1,6 @@
 import db from '../../../database/models/index';
-import capitalizeFirstLetter from '../../utils/strings';
+import { capitalizeFirstLetter, createSlug } from '../../utils/strings';
+import uploadToCloudinary from '../../utils/uploads';
 
 // LOAD MODELS
 const { book, author, genre } = db;
@@ -13,11 +14,15 @@ const addBook = async (req, res) => {
   const { userId } = res.locals;
 
   try {
-    // FORMAT DATA
+    /**
+     * FORMAT DATA (TITLE, GENRE, SLUG)
+     */
     const formattedTitle = capitalizeFirstLetter(title);
+     // ADD AUTHOR NAME IF IT EXISTS
     if (authorName) {
       authorName = capitalizeFirstLetter(authorName);
     }
+    // ADD GENRE NAME IF IT EXISTS
     if (genreName) {
       genreName = capitalizeFirstLetter(genreName);
     }
@@ -68,7 +73,6 @@ const addBook = async (req, res) => {
         authorId = authorExists.id;
       }
     }
-    console.log(authorId);
     // CHECK IF GENRE EXISTS
     if (genreId) {
       const genreExists = await genre.findOne({
@@ -104,9 +108,13 @@ const addBook = async (req, res) => {
         genreId = genreExists.id;
       }
     }
+    // CREATE SLUG
+    const slug = createSlug(`${formattedTitle} ${authorName}`);
     /**
      * CREATE NEW BOOK
      */
+    // UPLOAD COVER TO CLOUDINARY
+    const coverUrl = await uploadToCloudinary(cover, 'books', formattedTitle.split(' ').join('_').toLowerCase());
     const newBook = await book.create({
       title: formattedTitle,
       authorId,
@@ -114,8 +122,9 @@ const addBook = async (req, res) => {
       releaseYear,
       isbn,
       genreId,
-      cover,
+      cover: coverUrl,
       copies,
+      slug
     });
     // RETURN RESPONSE
     return res.status(201).json({

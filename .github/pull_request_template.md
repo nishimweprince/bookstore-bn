@@ -4,7 +4,7 @@
 
 ## How should this be manually tested?
 
-- Clone the repository using `git clone` [link](https://github.com/nishimweprince/bookstore-fn.git)
+- Clone the repository using `git clone` [link](https://github.com/nishimweprince/bookstore-bn.git)
 
 - Checkout to the branch using `git checkout <branch-name>`
 

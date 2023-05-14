@@ -18,6 +18,8 @@ const loginController = async (req, res) => {
   // GET DATA FROM REQUEST BODY
   const { email, password } = req.body;
 
+  console.log(req.body);
+
   try {
     // CHECK IF USER EXISTS
     const userExists = await user.findOne({
@@ -54,8 +56,10 @@ const loginController = async (req, res) => {
     return res.status(200).json({
       message: 'User logged in successfully',
       user: userData,
+      Authorization: token,
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
     });

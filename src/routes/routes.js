@@ -10,10 +10,10 @@ const router = express.Router();
  */
 
 // USER ROUTES
-router.use('/user', userRoute);
+router.use('/users', userRoute);
 
 // BOOK ROUTES
-router.use('/book', bookRoute);
+router.use('/books', bookRoute);
 
 // EXPORT ROUTER
 export default router;

@@ -8,7 +8,7 @@ const readAllBooks = async (req, res) => {
   try {
     // GET ALL BOOKS
     const books = await book.findAll({
-      attributes: ['id', 'title', 'releaseYear', 'isbn', 'copies', 'createdAt', 'updatedAt', 'cover'],
+      attributes: ['id', 'title', 'releaseYear', 'isbn', 'copies', 'createdAt', 'slug', 'updatedAt', 'cover'],
       include: [
         {
             model: user,
