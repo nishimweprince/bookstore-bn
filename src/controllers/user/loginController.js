@@ -44,6 +44,11 @@ const loginController = async (req, res) => {
       role: userExists.role,
     };
     const token = jwt.sign(payload, secret, { expiresIn: '1w' });
+    // SET TOKEN IN COOKIE
+    res.cookie('authorization', token, {
+      httpOnly: true,
+      maxAge: 604800
+    });
     // RETURN RESPONSE
     const { password: pass, ...userData } = userExists.dataValues;
     return res.status(200).json({
