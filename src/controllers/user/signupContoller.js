@@ -2,28 +2,16 @@ import db from '../../../database/models/index';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { v2 as cloudinary } from 'cloudinary';
+import uploadToCloudinary from '../../utils/uploads';
 
 // CONFIGURE DOTENV
 dotenv.config();
 
-// LOAD ENVIROMENT VARIABLES
-const {
-  JWT_SECRET: secret,
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET,
-  CLOUDINARY_CLOUD_NAME,
-} = process.env;
-
-// CONFIGURE CLOUDINARY
-cloudinary.config({
-  cloud_name: CLOUDINARY_CLOUD_NAME,
-  api_key: CLOUDINARY_API_KEY,
-  api_secret: CLOUDINARY_API_SECRET,
-});
-
 // LOAD MODELS
 const { user } = db;
+
+// LOAD ENVIRONMENT VARIABLES
+const { JWT_SECRET: secret } = process.env;
 
 // SIGNUP CONTROLLER
 
@@ -46,14 +34,7 @@ const signupController = async (req, res) => {
      * IF USER DOES NOT EXIST
      */
     // CLOUDINARY UPLOAD
-    const options = {
-      folder: 'bookstore/users',
-      public_id: `user_${email}`,
-      use_filename: true,
-      unique_filename: false,
-    };
-    const result = await cloudinary.uploader.upload(photo, options);
-    const photoUrl = result.url;
+    const photoUrl = await uploadToCloudinary(photo, 'users', `user_${email}`);
     // IF USER DOES NOT EXIST, HASH PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
     // IF USER DOES NOT EXIST, CREATE USER
