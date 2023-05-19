@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import uploadToCloudinary from '../../utils/uploads';
+import { createSlug } from '../../utils/strings';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -46,6 +47,9 @@ const signupController = async (req, res) => {
     const photoUrl = await uploadToCloudinary(photo, 'users', `user_${email}`);
     // IF USER DOES NOT EXIST, HASH PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
+    // CREATE USER SLUG
+    let userSlug = `${name} ${email.split('@')[0]}`;
+    userSlug = userSlug.split(' ').join('-').toLowerCase();
     // IF USER DOES NOT EXIST, CREATE USER
     const newUser = await user.create(
       {
@@ -54,6 +58,7 @@ const signupController = async (req, res) => {
         password: hashedPassword,
         role,
         photo: photoUrl,
+        slug: userSlug,
       },
       {
         attributes: {

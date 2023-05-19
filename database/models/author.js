@@ -3,7 +3,6 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class author extends Model {
-
     static associate(models) {
       // BOOK
       author.hasMany(models.book, {
@@ -19,11 +18,21 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
         unique: true,
-        defaultValue: DataTypes.UUIDV4},
-      name : {
-      type: DataTypes.STRING,
-      allowNull: false,
-    }
+        defaultValue: DataTypes.UUIDV4,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      photo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      slug: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
     {
       sequelize,

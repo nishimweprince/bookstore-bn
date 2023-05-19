@@ -16,7 +16,7 @@ const readSingleBook = async (req, res) => {
         {
           model: user,
           as: 'user',
-          attributes: ['name', 'email'],
+          attributes: ['name', 'email', 'slug'],
         },
         {
           model: genre,
@@ -26,7 +26,7 @@ const readSingleBook = async (req, res) => {
         {
           model: author,
           as: 'author',
-          attributes: ['name'],
+          attributes: ['name', 'slug'],
         },
       ],
     });

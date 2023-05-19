@@ -64,9 +64,13 @@ const addBook = async (req, res) => {
         where: { name: authorName },
       });
       if (!authorExists) {
+        // CREATE AUTHOR SLUG
+        let authorSlug = `${authorName} ${authorId.split('-')[0]}`
+        authorSlug = authorSlug.split(' ').join('-').toLowerCase();
         // CREATE NEW AUTHOR
         const newAuthor = await author.create({
           name: authorName,
+          slug: authorSlug,
         });
         authorId = newAuthor.id;
       } else {
