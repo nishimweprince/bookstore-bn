@@ -6,7 +6,7 @@ const { book } = db;
 // DELETE BOOK CONTROLLER
 const deleteBook = async (req, res) => {
   // GET BOOK ID FROM REQUEST PARAMS
-  const { id } = req.locals;
+  const { id } = res.locals;
 
   try {
     // DELETE BOOK

@@ -21,8 +21,6 @@ const signupController = async (req, res) => {
   const { name, email, password, role } = req.body;
   let { photo } = req.body;
 
-  console.log(req.body);
-
   try {
     // CHECK IF USER ALREADY EXISTS
     const userExists = await user.findOne({

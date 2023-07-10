@@ -88,7 +88,7 @@ const protectDeleteBook = async (req, res, next) => {
       });
     }
     // IF USER HAS NECESSARY PERMISSIONS, CONTINUE
-    res.locals = { ...res.locals, userId, role, id: bookExists.dataValues.id };
+    res.locals = { userId, role, id: bookExists.dataValues.id };
     // END VERIFY AUTHORIZATION
     return next();
   } catch (error) {

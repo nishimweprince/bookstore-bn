@@ -8,9 +8,6 @@ const getFavorite = async (req, res) => {
   // CATCH USER ID FROM LOCALS
   const { userId } = res.locals;
 
-  console.log('userId', userId);
-  console.log('id', id);
-
   try {
     // CHECK IF BOOK IS FAVORITED
     const isFavorited = await favorite.findOne({

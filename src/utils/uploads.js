@@ -22,7 +22,6 @@ const uploadToCloudinary = async (file, destinationFolder, publicId) => {
         unique_filename: false,
     };
     const result = await cloudinary.uploader.upload(file, options);
-    console.log(result.url);
     return result.url;
 };
 
